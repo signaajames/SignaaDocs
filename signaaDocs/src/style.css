@@ -1,0 +1,113 @@
+:root {
+  /* Typography */
+  font-family: "Lato", "Open Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Layout + theme */
+  --app-bg: #ffffff; /* flat background, no card feel */
+  --text: #1f2937;
+  --muted: #9aa3af;
+  --page-bg: #ffffff;
+  --page-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --page-border: #eef2f7;
+  --focus: #2563eb;
+
+  /* Page geometry (approx 8.5in at 96dpi) */
+  --page-width: 816px;
+  --page-padding: 96px; /* 1in margins */
+
+  background-color: var(--app-bg);
+  color: var(--text);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body { margin: 0; background: var(--app-bg); }
+
+#app {
+  min-height: 100svh;
+  display: block;
+  padding: 0;
+  background: var(--app-bg);
+}
+
+/* Flat, full-bleed editor (no card) */
+#editor {
+  background: transparent;
+  color: var(--text);
+  width: 100%;
+  max-width: 900px;              /* readable line length */
+  min-height: 100svh;
+  margin: 0 auto;                /* center column, no card */
+  padding: 32px 24px;            /* comfortable insets */
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: left;
+  outline: none;
+
+  /* Make typing feel better */
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  caret-color: var(--focus);
+  white-space: pre-wrap;          /* keep manual line breaks */
+  overflow-wrap: break-word;      /* wrap long words/links */
+  word-break: break-word;
+}
+
+/* Custom focus ring for the document surface */
+#editor:focus { outline: 2px solid color-mix(in oklab, var(--focus) 60%, transparent); }
+
+/* Subtle placeholder when empty */
+#editor:empty::before { content: "Start typing..."; color: var(--muted); }
+
+/* Paragraph rhythm inside the editor */
+#editor p { margin: 0 0 1em; }
+
+/* Basic heading scale */
+#editor h1, #editor h2, #editor h3, #editor h4, #editor h5, #editor h6 {
+  margin: 0 0 0.6em;
+  line-height: 1.25;
+}
+#editor h1 { font-size: 2rem; }
+#editor h2 { font-size: 1.625rem; }
+#editor h3 { font-size: 1.375rem; }
+
+/* Lists */
+#editor ul, #editor ol { margin: 0 0 1em 1.25em; }
+#editor li { margin: 0.25em 0; }
+
+/* Links */
+#editor a { color: #2563eb; text-decoration: underline; text-underline-offset: 2px; }
+
+/* Images and tables scale within the page */
+#editor img, #editor table { max-width: 100%; }
+
+/* Reduce left/right margins and padding on narrow viewports */
+@media (max-width: 900px) {
+  #editor { max-width: 760px; padding: 28px 20px; }
+}
+
+@media (max-width: 600px) {
+  #editor { font-size: 15px; max-width: 100%; padding: 20px 16px; }
+}
+
+/* Printer-friendly: remove chrome */
+  @media print {
+  body, #app { background: #fff; }
+  #editor {
+    width: 100%;
+    margin: 0;
+    max-width: none;
+    min-height: auto;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 48px; /* keeps decent margins when printing */
+  }
+}
